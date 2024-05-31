@@ -1,0 +1,703 @@
+jamesdanielmarrsritchey: Using JavaFX, write a graphical program which allows the user to enter text.
+
+GitHub Copilot: Sure, here's a simple JavaFX program that creates a window with a TextField where the user can enter text.
+
+```java
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        TextField textField = new TextField();
+
+        VBox vbox = new VBox(textField);
+        Scene scene = new Scene(vbox, 200, 100);
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+```
+
+This program creates a new JavaFX application with a single TextField. The TextField is added to a VBox, which is a type of layout that arranges its children in a single vertical column. The VBox is then set as the root of the Scene, and the Scene is displayed in the Stage, which is the top-level container in any JavaFX application.
+
+jamesdanielmarrsritchey: Add a save button, which allows the user to save what they've typed to a file.
+
+GitHub Copilot: Sure, here's how you can modify the program to include a "Save" button that writes the contents of the TextField to a file when clicked.
+
+```java
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        TextField textField = new TextField();
+        Button saveButton = new Button("Save");
+
+        saveButton.setOnAction(e -> {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"))) {
+                writer.write(textField.getText());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        VBox vbox = new VBox(textField, saveButton);
+        Scene scene = new Scene(vbox, 200, 100);
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+```
+
+In this code, a Button is created and added to the VBox along with the TextField. An action is set on the button using the `setOnAction` method, which takes a lambda expression. This expression is executed when the button is clicked. The lambda expression writes the text from the TextField to a file named "output.txt". If the file does not exist, it is created. If it does exist, its contents are overwritten. The BufferedWriter is used to write text to the file, and it is closed automatically because it is in a try-with-resources statement.
+
+jamesdanielmarrsritchey: Add a comment describing how to compile, and install this application on Debian.
+
+GitHub Copilot: Sure, here's how you can compile and run this JavaFX application on a Debian-based system:
+
+```java
+/*
+To compile and run this JavaFX application on a Debian-based system, you need to follow these steps:
+
+1. Install OpenJDK 11 or higher and JavaFX. You can do this using the following commands:
+   ```
+   sudo apt update
+   sudo apt install openjdk-11-jdk
+   sudo apt install openjfx
+   ```
+
+2. Save this file with a .java extension, for example, `Main.java`.
+
+3. Compile the Java file using the Java compiler (`javac`). You need to specify the path to the JavaFX SDK using the `--module-path` option, and you need to specify the modules your program uses with the `--add-modules` option. Run the following command:
+   ```
+   javac --module-path /usr/share/openjfx/lib --add-modules javafx.controls Main.java
+   ```
+   Replace `/usr/share/openjfx/lib` with the path to your `lib` directory in the JavaFX SDK, if it's different.
+
+4. Run the program using the Java launcher, again specifying the module path and the modules:
+   ```
+   java --module-path /usr/share/openjfx/lib --add-modules javafx.controls Main
+   ```
+   Replace `/usr/share/openjfx/lib` with the path to your `lib` directory in the JavaFX SDK, if it's different.
+*/
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        TextField textField = new TextField();
+        Button saveButton = new Button("Save");
+
+        saveButton.setOnAction(e -> {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"))) {
+                writer.write(textField.getText());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        VBox vbox = new VBox(textField, saveButton);
+        Scene scene = new Scene(vbox, 200, 100);
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+```
+
+Please note that the paths and commands might vary depending on your specific setup and JavaFX version.
+
+jamesdanielmarrsritchey: That reply seems to have markup issues making it display incorrectly in chat. Please repeat as a single box of code that I can copy/paste into my project.
+
+GitHub Copilot: Apologies for the confusion. Here's the code with the instructions as comments:
+
+```java
+/*
+To compile and run this JavaFX application on a Debian-based system, you need to follow these steps:
+
+1. Install OpenJDK 11 or higher and JavaFX. You can do this using the following commands:
+   sudo apt update
+   sudo apt install openjdk-11-jdk
+   sudo apt install openjfx
+
+2. Save this file with a .java extension, for example, `Main.java`.
+
+3. Compile the Java file using the Java compiler (`javac`). You need to specify the path to the JavaFX SDK using the `--module-path` option, and you need to specify the modules your program uses with the `--add-modules` option. Run the following command:
+   javac --module-path /usr/share/openjfx/lib --add-modules javafx.controls Main.java
+   Replace `/usr/share/openjfx/lib` with the path to your `lib` directory in the JavaFX SDK, if it's different.
+
+4. Run the program using the Java launcher, again specifying the module path and the modules:
+   java --module-path /usr/share/openjfx/lib --add-modules javafx.controls Main
+   Replace `/usr/share/openjfx/lib` with the path to your `lib` directory in the JavaFX SDK, if it's different.
+*/
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        TextField textField = new TextField();
+        Button saveButton = new Button("Save");
+
+        saveButton.setOnAction(e -> {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"))) {
+                writer.write(textField.getText());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        VBox vbox = new VBox(textField, saveButton);
+        Scene scene = new Scene(vbox, 200, 100);
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+```
+
+Please note that the paths and commands might vary depending on your specific setup and JavaFX version.
+
+jamesdanielmarrsritchey: Instead of saving the text to output.txt, allow the user to browse, and create a new file.
+
+GitHub Copilot: Sure, you can use the `FileChooser` class in JavaFX to allow the user to browse for a location to save the file. Here's how you can modify the `setOnAction` method for the save button:
+
+```java
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        TextField textField = new TextField();
+        Button saveButton = new Button("Save");
+
+        saveButton.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save Text");
+            File file = fileChooser.showSaveDialog(primaryStage);
+            if (file != null) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                    writer.write(textField.getText());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        VBox vbox = new VBox(textField, saveButton);
+        Scene scene = new Scene(vbox, 200, 100);
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+```
+
+In this code, a `FileChooser` is created when the save button is clicked. The `showSaveDialog` method displays a save dialog where the user can choose where to save the file. If the user chooses a file and clicks "Save", the text from the TextField is written to the chosen file. If the user cancels the save dialog, `showSaveDialog` returns null and no file is written.
+
+jamesdanielmarrsritchey: The save button should be in a menu. File --> Save.
+
+GitHub Copilot: Sure, you can use the `MenuBar`, `Menu`, and `MenuItem` classes in JavaFX to create a menu with a "Save" option. Here's how you can modify the program:
+
+```java
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        TextField textField = new TextField();
+
+        MenuItem saveMenuItem = new MenuItem("Save");
+        saveMenuItem.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save Text");
+            File file = fileChooser.showSaveDialog(primaryStage);
+            if (file != null) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                    writer.write(textField.getText());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        Menu fileMenu = new Menu("File");
+        fileMenu.getItems().add(saveMenuItem);
+
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().add(fileMenu);
+
+        VBox vbox = new VBox(menuBar, textField);
+        Scene scene = new Scene(vbox, 200, 100);
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+```
+
+In this code, a `MenuItem` is created for the "Save" option. This is added to a `Menu` labeled "File", which is then added to a `MenuBar`. The `MenuBar` is added to the `VBox` along with the `TextField`. The action for the "Save" option is the same as before: it opens a save dialog and writes the text from the `TextField` to the chosen file.
+
+jamesdanielmarrsritchey: The "File" menu, should also have a option called "Close Application", which closes the application.
+
+GitHub Copilot: Sure, you can add a "Close Application" option to the "File" menu. Here's how you can modify the program:
+
+```java
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        TextField textField = new TextField();
+
+        MenuItem saveMenuItem = new MenuItem("Save");
+        saveMenuItem.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save Text");
+            File file = fileChooser.showSaveDialog(primaryStage);
+            if (file != null) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                    writer.write(textField.getText());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        MenuItem closeMenuItem = new MenuItem("Close Application");
+        closeMenuItem.setOnAction(e -> Platform.exit());
+
+        Menu fileMenu = new Menu("File");
+        fileMenu.getItems().addAll(saveMenuItem, closeMenuItem);
+
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().add(fileMenu);
+
+        VBox vbox = new VBox(menuBar, textField);
+        Scene scene = new Scene(vbox, 200, 100);
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+```
+
+In this code, a `MenuItem` is created for the "Close Application" option. This is added to the "File" menu along with the "Save" option. The action for the "Close Application" option is to call `Platform.exit()`, which closes the application.
+
+jamesdanielmarrsritchey: The text field should take up the full width, and height of the window.
+
+GitHub Copilot: To make the TextField take up the full width and height of the window, you can use the `setFillWidth` and `setVgrow` methods of the VBox. Here's how you can modify the program:
+
+```java
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        TextField textField = new TextField();
+
+        MenuItem saveMenuItem = new MenuItem("Save");
+        saveMenuItem.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save Text");
+            File file = fileChooser.showSaveDialog(primaryStage);
+            if (file != null) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                    writer.write(textField.getText());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        MenuItem closeMenuItem = new MenuItem("Close Application");
+        closeMenuItem.setOnAction(e -> Platform.exit());
+
+        Menu fileMenu = new Menu("File");
+        fileMenu.getItems().addAll(saveMenuItem, closeMenuItem);
+
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().add(fileMenu);
+
+        VBox vbox = new VBox(menuBar, textField);
+        VBox.setVgrow(textField, Priority.ALWAYS);
+        vbox.setFillWidth(true);
+
+        Scene scene = new Scene(vbox, 200, 100);
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+```
+
+In this code, `VBox.setVgrow(textField, Priority.ALWAYS)` is used to make the TextField grow vertically to fill the available space in the VBox, and `vbox.setFillWidth(true)` is used to make the TextField fill the full width of the VBox.
+
+jamesdanielmarrsritchey:  error: cannot find symbol
+        closeMenuItem.setOnAction(e -> Platform.exit());
+
+GitHub Copilot: The error message "cannot find symbol" means that the Java compiler cannot find a class, method, or variable that it expects to be there. In this case, it seems like the `closeMenuItem` or `Platform` class is not recognized.
+
+If you have not defined `closeMenuItem` or imported the `Platform` class, you will get this error. Here's how you can fix it:
+
+1. Make sure you have defined `closeMenuItem` as a `MenuItem`. Here's an example:
+
+```java
+MenuItem closeMenuItem = new MenuItem("Close Application");
+```
+
+2. Make sure you have imported the `Platform` class from `javafx.application`. Here's how you can do it:
+
+```java
+import javafx.application.Platform;
+```
+
+3. Set the action for `closeMenuItem` to exit the platform:
+
+```java
+closeMenuItem.setOnAction(e -> Platform.exit());
+```
+
+Here's how the complete code should look:
+
+```java
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        TextField textField = new TextField();
+
+        MenuItem saveMenuItem = new MenuItem("Save");
+        saveMenuItem.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save Text");
+            File file = fileChooser.showSaveDialog(primaryStage);
+            if (file != null) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                    writer.write(textField.getText());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        MenuItem closeMenuItem = new MenuItem("Close Application");
+        closeMenuItem.setOnAction(e -> Platform.exit());
+
+        Menu fileMenu = new Menu("File");
+        fileMenu.getItems().addAll(saveMenuItem, closeMenuItem);
+
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().add(fileMenu);
+
+        VBox vbox = new VBox(menuBar, textField);
+        VBox.setVgrow(textField, Priority.ALWAYS);
+        vbox.setFillWidth(true);
+
+        Scene scene = new Scene(vbox, 200, 100);
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+```
+
+jamesdanielmarrsritchey: The text area needs to fill the program window's full height.
+
+GitHub Copilot: To make the TextField take up the full height of the window, you can replace it with a TextArea and use the `setVgrow` method of the VBox. Here's how you can modify the program:
+
+```java
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        TextArea textArea = new TextArea();
+
+        MenuItem saveMenuItem = new MenuItem("Save");
+        saveMenuItem.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save Text");
+            File file = fileChooser.showSaveDialog(primaryStage);
+            if (file != null) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                    writer.write(textArea.getText());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        MenuItem closeMenuItem = new MenuItem("Close Application");
+        closeMenuItem.setOnAction(e -> Platform.exit());
+
+        Menu fileMenu = new Menu("File");
+        fileMenu.getItems().addAll(saveMenuItem, closeMenuItem);
+
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().add(fileMenu);
+
+        VBox vbox = new VBox(menuBar, textArea);
+        VBox.setVgrow(textArea, Priority.ALWAYS);
+        vbox.setFillWidth(true);
+
+        Scene scene = new Scene(vbox, 200, 100);
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+```
+
+In this code, `VBox.setVgrow(textArea, Priority.ALWAYS)` is used to make the TextArea grow vertically to fill the available space in the VBox, and `vbox.setFillWidth(true)` is used to make the TextArea fill the full width of the VBox.
+
+jamesdanielmarrsritchey: error: cannot find symbol
+        closeMenuItem.setOnAction(e -> Platform.exit());
+
+
+GitHub Copilot: The error message "cannot find symbol" means that the Java compiler cannot find a class, method, or variable that it expects to be there. In this case, it seems like the `Platform` class is not recognized.
+
+If you have not imported the `Platform` class from `javafx.application`, you will get this error. Here's how you can fix it:
+
+1. Make sure you have imported the `Platform` class from `javafx.application`. Here's how you can do it:
+
+```java
+import javafx.application.Platform;
+```
+
+2. Set the action for `closeMenuItem` to exit the platform:
+
+```java
+closeMenuItem.setOnAction(e -> Platform.exit());
+```
+
+Here's how the complete code should look:
+
+```java
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        TextArea textArea = new TextArea();
+
+        MenuItem saveMenuItem = new MenuItem("Save");
+        saveMenuItem.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save Text");
+            File file = fileChooser.showSaveDialog(primaryStage);
+            if (file != null) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                    writer.write(textArea.getText());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        MenuItem closeMenuItem = new MenuItem("Close Application");
+        closeMenuItem.setOnAction(e -> Platform.exit());
+
+        Menu fileMenu = new Menu("File");
+        fileMenu.getItems().addAll(saveMenuItem, closeMenuItem);
+
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().add(fileMenu);
+
+        VBox vbox = new VBox(menuBar, textArea);
+        VBox.setVgrow(textArea, Priority.ALWAYS);
+        vbox.setFillWidth(true);
+
+        Scene scene = new Scene(vbox, 200, 100);
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+```
